@@ -13,7 +13,7 @@ Applicazione per la gestione, visualizzazione e filtraggio di eventi, con funzio
 * **Richiesta API**
 
   * Utilizzo di `fetch()` con `async/await`
-  * Responsabili: *Alvise*, *Zai*
+  * Responsabili: *Alvise*, *Zainab*
 
 * **Gestione lettura/scrittura dati**
 
@@ -21,7 +21,7 @@ Applicazione per la gestione, visualizzazione e filtraggio di eventi, con funzio
 
 * **Scroll a caricamento (infinite scroll)**
 
-  * Responsabili: *Zai*, *Willy*
+  * Responsabili: *Zainab*, *William*
 
 ---
 
@@ -67,7 +67,7 @@ L'utente può filtrare e ordinare gli eventi secondo diversi criteri:
 
 * **Rimozione eventi passati**
 
-  * Responsabile: *Willy*
+  * Responsabile: *William*
 
 ---
 
@@ -79,13 +79,13 @@ L'utente può filtrare e ordinare gli eventi secondo diversi criteri:
 
 * **Gestione account utente**
 
-  * Responsabile: *Zai*
+  * Responsabile: *Zainab*
 
 ---
 
 ## 🛠️ Tecnologie utilizzate
 
-* JavaScript (ES6+)
+* JavaScript
 * Fetch API
 * Async/Await
 * HTML / CSS

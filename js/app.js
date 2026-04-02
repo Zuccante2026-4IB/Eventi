@@ -88,8 +88,7 @@ function scrittura_evento() {
 }
 
 
-//*
-
+/*
 //Scroll infinito
 const arr_size = 1000;
 const altezzaViewport = 400;
@@ -137,7 +136,6 @@ function render() {
         list.appendChild(div);
     });
     
-    vie
 }
 
 function scroll({oggetto_json, nRighe, altezzaRiga}) {
@@ -191,13 +189,8 @@ function feedback() {
 
 }
 
-function account() {
+*/
 
-}
-
-
-
-//*/ 
 
 //METODI ESSENZIALI
 /*richiesta API
