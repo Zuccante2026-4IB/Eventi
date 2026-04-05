@@ -98,7 +98,7 @@ L'utente può filtrare e ordinare gli eventi secondo diversi criteri:
 | --------- | ------------------------------ |
 | Alvise    | API, gestione dati             |
 | Zai       | API, scroll, account           |
-| Willy     | Scroll, pulizia eventi         |
+| William     | Scroll, pulizia eventi         |
 | Giuseppe  | Filtri (luogo, tipo, prezzo)   |
 | Rossi     | Filtri (data, gestore, target) |
 | Busetto   | Ricerca                        |
