@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Eventi Veneziani</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">🎭 Feedback Eventi Veneziani</h1>
+                <p class="header-subtitle">Condividi la tua esperienza e aiutaci a migliorare</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Events Section -->
+            <section class="events-section">
+                <div class="section-header">
+                    <h2>Seleziona un Evento</h2>
+                    <p>Clicca su un evento per iniziare</p>
+                </div>
+                <div class="events-grid" id="eventsGrid"></div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section class="feedback-section" id="feedbackSection">
+                <div class="feedback-container">
+                    <!-- Feedback Header -->
+                    <div class="feedback-header">
+                        <div class="feedback-header-content">
+                            <h2 id="eventTitle" class="feedback-title"></h2>
+                            <p id="eventInfo" class="feedback-subtitle"></p>
+                        </div>
+                        <button class="btn-close" id="closeBtn" onclick="closeFeedback()">✕</button>
+                    </div>
+
+                    <!-- Success Message -->
+                    <div class="alert alert-success" id="successAlert" style="display: none;">
+                        <span class="alert-icon">✓</span>
+                        <span class="alert-text">Grazie! Il tuo feedback è stato registrato con successo.</span>
+                    </div>
+
+                    <!-- Feedback Form -->
+                    <form class="feedback-form" id="feedbackForm">
+                        <!-- Rating Section -->
+                        <div class="form-section">
+                            <label class="form-label">Valutazione Complessiva *</label>
+                            <div class="rating-container" id="ratingContainer"></div>
+                        </div>
+
+                        <!-- Positive Aspects -->
+                        <div class="form-section">
+                            <label class="form-label">Aspetti Positivi (almeno uno) *</label>
+                            <div class="checkbox-grid" id="positiveAspectsContainer"></div>
+                        </div>
+
+                        <!-- Improvement Aspects -->
+                        <div class="form-section">
+                            <label class="form-label">Aspetti da Migliorare (almeno uno) *</label>
+                            <div class="checkbox-grid" id="improvementAspectsContainer"></div>
+                        </div>
+
+                        <!-- Comment -->
+                        <div class="form-section">
+                            <label class="form-label" for="commentInput">Commento Dettagliato</label>
+                            <textarea 
+                                id="commentInput" 
+                                class="textarea-input"
+                                placeholder="Condividi i tuoi pensieri, suggerimenti o esperienze... Scrivi tutto quello che vuoi!"
+                                rows="6"></textarea>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="form-section">
+                            <label class="form-label" for="nameInput">Nome (opzionale)</label>
+                            <input 
+                                type="text" 
+                                id="nameInput" 
+                                class="text-input"
+                                placeholder="Il tuo nome">
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Invia Feedback</button>
+                            <button type="reset" class="btn btn-secondary">Cancella</button>
+                        </div>
+                    </form>
+
+                    <!-- Stats -->
+                    <div class="stats-grid" id="statsGrid"></div>
+
+                    <!-- Feedback List -->
+                    <div class="feedback-list-section" id="feedbackListSection"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Feedback Eventi Veneziani | Tutti i diritti riservati</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
