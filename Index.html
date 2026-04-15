@@ -8,50 +8,56 @@
 
 	<!-- Tema -->
 	<link id="theme_style" rel="stylesheet" href="css/Double stylesheet folder/darkstyle.css" />
+	<link href="style.css" rel="stylesheet">
 
-	<script src="js\app.js"></script>
+	<script src="js\app.js" defer></script>
 </head>
 
 <body class="body1">
-	<header>
-		<div class="header-title">
-			<span class="headtitle">Progetto GetUP</span>
-		</div>
+    <header>
+        <div class="header-title">
+            <span class="headtitle">Progetto GetUP</span>
+        </div>
 
-		<nav>
-			<ul class="navlist">
-				<li><a>Homepage</a></li>
-				<li><a>Chi siamo</a></li>
-				<li><a>Eventi</a></li>
-			</ul>
-		</nav>
+        <nav>
+            <ul class="navlist">
+                <li><a>Homepage</a></li>
+                <li><a>Chi siamo</a></li>
+                <li><a>Eventi</a></li>
+            </ul>
+        </nav>
 
-		<div class="headswitch">
-			<label class="toggle-label">
-				<input id="toggle_switch" class="toggle-checkbox" type="checkbox" />
-				<div class="toggle-slot">
-					<div class="sun-icon-wrapper">
-						<div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
-					</div>
-
-					<div class="toggle-button"></div>
-
-					<div class="moon-icon-wrapper">
-						<div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
-					</div>
-				</div>
-			</label>
-		</div>
-	</header>
-
-	<main style="background-color: aliceblue;">
-		<h2>Eventi</h2>
-		<div id="eventi"></div>
-	</main>
-
-
-
-
+        <div class="headswitch">
+            <label class="toggle-label">
+                <input id="toggle_switch" class="toggle-checkbox" type="checkbox" />
+                <div class="toggle-slot">
+                    <div class="sun-icon-wrapper">
+                        <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                    </div>
+                    <div class="toggle-button"></div>
+                    <div class="moon-icon-wrapper">
+                        <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </header>
+ 
+    <main>
+        <h2>Eventi</h2>
+        <!-- scrittura_evento() scrive qui le card -->
+        <div id="eventi">
+            <div id="viewport">
+                <div id="top-padding"></div>
+                <div id="list"></div>
+                <div id="bottom-padding"></div>
+            </div>
+        </div>
+ 
+        <!-- virtual scroll -->
+        
+    </main>
+ 
 </body>
 
 </html>

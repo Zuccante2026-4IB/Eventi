@@ -1,0 +1,100 @@
+/* ── Card eventi (scrittura_evento) ── */
+#eventi {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.evento-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.evento-nome {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.evento-info {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.evento-desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.evento-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ── Virtual scroll ── */
+#viewport {
+    height: 400px;
+    /* deve corrispondere ad altezzaViewport nel JS */
+    overflow-y: scroll;
+    /* OBBLIGATORIO — senza questo scrollTop è sempre 0 */
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    margin: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.riga {
+    height: 90px;
+    /* deve corrispondere ad altezzaRiga nel JS */
+    padding: 12px 16px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    box-sizing: border-box;
+}
+
+.riga:last-child {
+    border-bottom: none;
+}
+
+.riga-nome {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.riga-meta {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.riga-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tag {
+    font-size: 11px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+}
