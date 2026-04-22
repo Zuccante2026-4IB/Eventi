@@ -4,7 +4,7 @@ const oggetto_json = `[
         "data": { "y": 2026, "m": 5, "d": 4, "yyyymmdd": 20260504 },
         "luogo": { "nome": "Chiesa di San Vidal", "lat": 45.4337, "lon": 12.3326 },
         "orario": "21:00",
-        "descrizione": "Concerto di musica barocca con strumenti d’epoca.",
+        "descrizione": "Concerto di musica barocca con strumenti d'epoca.",
         "tags": ["musica", "classica"],
         "prezzo": { "nome": "Intero", "prezzoEur": 25.00, "condizioni": "nessuna" }
     },
@@ -62,9 +62,8 @@ const oggetto_json = `[
         "tags": ["food", "vino"],
         "prezzo": { "nome": "Full", "prezzoEur": 30.00, "condizioni": "include cicchetti" }
     },
-
     {
-        "nome": "Cinema all’aperto in campo",
+        "nome": "Cinema all'aperto in campo",
         "data": { "y": 2026, "m": 5, "d": 10, "yyyymmdd": 20260510 },
         "luogo": { "nome": "Campo San Polo", "lat": 45.4380, "lon": 12.3292 },
         "orario": "21:30",
@@ -95,7 +94,7 @@ const oggetto_json = `[
         "data": { "y": 2026, "m": 5, "d": 13, "yyyymmdd": 20260513 },
         "luogo": { "nome": "Giardini della Biennale", "lat": 45.4289, "lon": 12.3570 },
         "orario": "08:00",
-        "descrizione": "Sessione di yoga all’aperto per tutti i livelli.",
+        "descrizione": "Sessione di yoga all'aperto per tutti i livelli.",
         "tags": ["sport", "benessere"],
         "prezzo": { "nome": "Donazione", "prezzoEur": 10.00, "condizioni": "libero" }
     },
@@ -157,28 +156,22 @@ const oggetto_json = `[
 
 const arr = JSON.parse(oggetto_json);
 
-const arr_size        = arr.length;
-const altezzaViewport = 400;
-const altezzaRiga     = 90;
-const buffer          = 2;
+const eventiPerPagina = 10;
+let paginaCorrente    = 0;
+const totalePagine    = Math.ceil(arr.length / eventiPerPagina);
 
-let viewport, list, paddingTop, paddingBottom;
-const pool = [];
+function mostra_pagina(n) {
+    paginaCorrente = n;
 
-// ─────────────────────────────────────────────
-//  scrittura_evento
-//  FIX: usa createElement invece di innerHTML +=
-//  così i tag <br> non vengono mai collassati
-// ─────────────────────────────────────────────
-function scrittura_evento() {
+    const inizio = n * eventiPerPagina;
+    const fine   = inizio + eventiPerPagina;
+
     const div_eventi = document.getElementById("eventi");
     div_eventi.innerHTML = "";
 
-    arr.forEach(evento => {
+    arr.slice(inizio, fine).forEach(evento => {
         const card = document.createElement("div");
         card.className = "evento-card";
-
-        //crea il box dell'evento
         card.innerHTML = `
             <div class="evento-nome">${evento.nome}</div>
             <div class="evento-info">
@@ -191,81 +184,48 @@ function scrittura_evento() {
                 ${evento.tags.map(t => `<span class="tag">${t}</span>`).join("")}
             </div>
         `;
-
         div_eventi.appendChild(card);
     });
+
+    aggiorna_paginazione();
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function buildPool() {
-    list.innerHTML = "";
-    pool.length = 0;
+// ─────────────────────────────────────────────
+//  aggiorna_paginazione()
+//  Costruisce la barra:
+//  ← Precedente  1  2  3  Successivo →
+// ─────────────────────────────────────────────
+function aggiorna_paginazione() {
+    const nav = document.getElementById("paginazione");
+    nav.innerHTML = "";
 
-    const count = Math.ceil(altezzaViewport / altezzaRiga) + buffer * 2;
+    // ← Precedente
+    const prev = document.createElement("button");
+    prev.textContent = "← Precedente";
+    prev.className = "pagina-btn pagina-testo";
+    prev.disabled = paginaCorrente === 0;
+    prev.addEventListener("click", () => mostra_pagina(paginaCorrente - 1));
+    nav.appendChild(prev);
 
-    for (let i = 0; i < count; i++) {
-        const row  = document.createElement("div");
-        row.className = "riga";
-
-        const nome = document.createElement("div");
-        nome.className = "riga-nome";
-
-        const meta = document.createElement("div");
-        meta.className = "riga-meta";
-
-        const desc = document.createElement("div");
-        desc.className = "riga-desc";
-
-        row.appendChild(nome);
-        row.appendChild(meta);
-        row.appendChild(desc);
-        list.appendChild(row);
-
-        pool.push({ row, nome, meta, desc });
+    // numeri
+    for (let i = 0; i < totalePagine; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i + 1;
+        btn.className = "pagina-btn" + (i === paginaCorrente ? " pagina-attiva" : "");
+        btn.addEventListener("click", () => mostra_pagina(i));
+        nav.appendChild(btn);
     }
-}
 
-function render() {
-    const scrollTop = viewport.scrollTop;
-
-    let inizioIndex = Math.floor(scrollTop / altezzaRiga) - buffer;
-    inizioIndex = Math.max(0, inizioIndex);
-
-    let fineIndex = inizioIndex + Math.ceil(altezzaViewport / altezzaRiga) + buffer * 2;
-    fineIndex = Math.min(arr_size, fineIndex);
-
-    paddingTop.style.height    = (inizioIndex * altezzaRiga) + "px";
-    paddingBottom.style.height = ((arr_size - fineIndex) * altezzaRiga) + "px";
-
-    arr.slice(inizioIndex, fineIndex).forEach((item, i) => {
-        const node = pool[i];
-
-        node.row.style.display = "flex";
-        node.nome.textContent  = item.nome;
-
-        const data = `${item.data.d}/${item.data.m}/${item.data.y}`;
-        node.meta.innerHTML =
-            `<span>${data} ${item.orario}</span>` +
-            `<span>${item.luogo.nome}</span>` +
-            `<span>€${item.prezzo.prezzoEur.toFixed(2)}</span>` +
-            item.tags.map(t => `<span class="tag">${t}</span>`).join("");
-
-        node.desc.textContent = item.descrizione;
-    });
-
-    for (let i = fineIndex - inizioIndex; i < pool.length; i++) {
-        pool[i].row.style.display = "none";
-    }
+    // Successivo →
+    const next = document.createElement("button");
+    next.textContent = "Successivo →";
+    next.className = "pagina-btn pagina-testo";
+    next.disabled = paginaCorrente === totalePagine - 1;
+    next.addEventListener("click", () => mostra_pagina(paginaCorrente + 1));
+    nav.appendChild(next);
 }
 
 window.onload = function () {
-    viewport      = document.getElementById("viewport");
-    list          = document.getElementById("list");
-    paddingTop    = document.getElementById("top-padding");
-    paddingBottom = document.getElementById("bottom-padding");
-
-    scrittura_evento();
-    buildPool();
-    render();
-    viewport.addEventListener("scroll", render);
+    mostra_pagina(0);
 };
-
