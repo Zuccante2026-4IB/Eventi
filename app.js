@@ -50,10 +50,18 @@ function mostra_pagina(n) {
 				${evento.targets.map(t => `<span class="targets">${t}</span>`).join("")}
 			</div>
 			<div class="evento-img">
-				<img src="${evento.imgs[0].src}" alt="img\\${evento.imgs[0].alt}" />
+		`;
+
+		evento.imgs.forEach(img => {
+			card.innerHTML += `
+				<img src="${img.src}" alt="${img.alt}" />
+			`;
+		});
+
+		card.innerHTML+= `
 			</div>
 			<div class="evento-rank">
-				${evento.rank.stars}
+				Valutazione: ${evento.rank.stars}/5
 			</div>
 		`;
 		
@@ -91,22 +99,24 @@ function aggiorna_paginazione() {
     nav.appendChild(next);
 }
 
-function stringDate(fullDate){
-	let date = fullDate.getDate();
-	if(date < 10)
-		date = "0" + date;
+function stringDate(when){
+	let dd = when.getDate();
+	if(dd < 10)
+		dd = "0" + dd;
 
-	let month = fullDate.getMonth();
-	if(month < 10)
-		month = "0" + month;
+	let mm = when.getMonth();
+	if(mm < 10)
+		mm = "0" + mm;
 
-	let hours = fullDate.getHours();
-	if(hours < 10)
-		hours = "0" + hours;
+	let yyyy = when.getFullYear();
 
-	let minutes = fullDate.getMinutes();
-	if(minutes < 10)
-		minutes = "0" + minutes;
+	let hh = when.getHours();
+	if(hh < 10)
+		hh = "0" + hh;
 
-	return `${date}/${month}/${fullDate.getFullYear()} ${hours}:${minutes}`;
+	let min = when.getMinutes();
+	if(min < 10)
+		min = "0" + min;
+
+	return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
 }
