@@ -27,18 +27,36 @@ function mostra_pagina(n) {
     arr.slice(inizio, fine).forEach(evento => {
         const card = document.createElement("div");
         card.className = "evento-card";
-        card.innerHTML = `
-            <div class="evento-nome">${evento.nome}</div>
-            <div class="evento-info">
-                <span>${evento.data.d}/${evento.data.m}/${evento.data.y} — ${evento.orario}</span>
-                <span>${evento.luogo.nome}</span>
-                <span>€${evento.prezzo.prezzoEur.toFixed(2)}</span>
-            </div>
-            <div class="evento-desc">${evento.descrizione}</div>
-            <div class="evento-tags">
-                ${evento.tags.map(t => `<span class="tag">${t}</span>`).join("")}
-            </div>
-        `;
+        
+		card.innerHTML = `
+			<div class="evento-nome">${evento.nome}</div>
+			<div class="evento-info">
+		`;
+
+		evento.date_time.forEach(dt => {
+			card.innerHTML += `
+				<span>${stringDate(new Date(dt.st))} - ${stringDate(new Date(dt.en))}</span>
+			`;
+		});
+
+		card.innerHTML += `
+				<span>${evento.luogo.name}</span>
+			</div>
+			<div class="evento-desc">${evento.desc}</div>
+			<div class="evento-tags">
+				${evento.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+			</div>
+			<div class="evento-targets">
+				${evento.targets.map(t => `<span class="targets">${t}</span>`).join("")}
+			</div>
+			<div class="evento-img">
+				<img src="${evento.imgs[0].src}" alt="img\\${evento.imgs[0].alt}" />
+			</div>
+			<div class="evento-rank">
+				${evento.rank.stars}
+			</div>
+		`;
+		
         div_eventi.appendChild(card);
     });
 
@@ -71,4 +89,24 @@ function aggiorna_paginazione() {
     next.disabled = paginaCorrente === totalePagine - 1;
     next.addEventListener("click", () => mostra_pagina(paginaCorrente + 1));
     nav.appendChild(next);
+}
+
+function stringDate(fullDate){
+	let date = fullDate.getDate();
+	if(date < 10)
+		date = "0" + date;
+
+	let month = fullDate.getMonth();
+	if(month < 10)
+		month = "0" + month;
+
+	let hours = fullDate.getHours();
+	if(hours < 10)
+		hours = "0" + hours;
+
+	let minutes = fullDate.getMinutes();
+	if(minutes < 10)
+		minutes = "0" + minutes;
+
+	return `${date}/${month}/${fullDate.getFullYear()} ${hours}:${minutes}`;
 }
