@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
 
-/* ── Reset & base ── */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -39,9 +38,7 @@ header {
     border-top: none;
 }
 
-header div {
-    margin: 6px;
-}
+header div { margin: 6px; }
 
 .headtitle {
     text-align: left;
@@ -51,9 +48,7 @@ header div {
     letter-spacing: 0.02em;
 }
 
-.headswitch {
-    text-align: right;
-}
+.headswitch { text-align: right; }
 
 /* ── Nav ── */
 .navlist {
@@ -73,18 +68,11 @@ header div {
     transition: color 0.2s;
 }
 
-.navlist li:last-child a {
-    border-right: none;
-}
+.navlist li:last-child a { border-right: none; }
+.navlist li a:hover { color: #c8843a; }
 
-.navlist li a:hover {
-    color: #c8843a;
-}
-
-/* ── Toggle dark/light ── */
-.toggle-label {
-    display: inline-block;
-}
+/* ── Toggle ── */
+.toggle-label { display: inline-block; }
 
 .toggle-checkbox {
     position: absolute;
@@ -106,9 +94,7 @@ header div {
     cursor: pointer;
 }
 
-.toggle-checkbox:checked ~ .toggle-slot {
-    background-color: #243040;
-}
+.toggle-checkbox:checked ~ .toggle-slot { background-color: #243040; }
 
 .toggle-button {
     transform: translate(0.3em, 0.25em);
@@ -129,8 +115,7 @@ header div {
 
 .sun-icon-wrapper {
     position: absolute;
-    height: 6em;
-    width: 6em;
+    height: 6em; width: 6em;
     opacity: 1;
     transform: translate(2em, 2em) rotate(15deg);
     transform-origin: 50% 50%;
@@ -142,17 +127,11 @@ header div {
     transform: translate(3em, 2em) rotate(0deg);
 }
 
-.sun-icon {
-    position: absolute;
-    height: 6em;
-    width: 6em;
-    color: #c8843a;
-}
+.sun-icon { position: absolute; height: 6em; width: 6em; color: #c8843a; }
 
 .moon-icon-wrapper {
     position: absolute;
-    height: 6em;
-    width: 6em;
+    height: 6em; width: 6em;
     opacity: 0;
     transform: translate(11em, 2em) rotate(0deg);
     transform-origin: 50% 50%;
@@ -164,12 +143,7 @@ header div {
     transform: translate(2em, 2em) rotate(-15deg);
 }
 
-.moon-icon {
-    position: absolute;
-    height: 6em;
-    width: 6em;
-    color: #e8ecef;
-}
+.moon-icon { position: absolute; height: 6em; width: 6em; color: #e8ecef; }
 
 /* ── Main ── */
 main {
@@ -188,7 +162,7 @@ main h2 {
     color: #e8ecef;
 }
 
-/* ── Evento card ── */
+/* ── Card eventi ── */
 #eventi {
     display: flex;
     flex-direction: column;
@@ -214,11 +188,7 @@ main h2 {
     transform: translateY(-2px);
 }
 
-.evento-nome {
-    font-size: 17px;
-    font-weight: 700;
-    color: #e8ecef;
-}
+.evento-nome { font-size: 17px; font-weight: 700; color: #e8ecef; }
 
 .evento-info {
     display: flex;
@@ -228,23 +198,10 @@ main h2 {
     color: #8a9bb0;
 }
 
-.evento-info span {
-    display: inline-flex;
-    align-items: center;
-}
+.evento-info span { display: inline-flex; align-items: center; }
+.evento-desc { font-size: 14px; color: #c2ccd8; line-height: 1.6; }
 
-.evento-desc {
-    font-size: 14px;
-    color: #c2ccd8;
-    line-height: 1.6;
-}
-
-.evento-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
-}
+.evento-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 
 .tag {
     background-color: rgba(200, 132, 58, 0.18);
@@ -285,10 +242,7 @@ main h2 {
     color: #c8843a;
 }
 
-.pagina-btn:disabled {
-    opacity: 0.3;
-    cursor: default;
-}
+.pagina-btn:disabled { opacity: 0.3; cursor: default; }
 
 .pagina-attiva {
     background-color: rgba(200, 132, 58, 0.28);
@@ -297,11 +251,9 @@ main h2 {
     border-color: rgba(200, 132, 58, 0.6);
 }
 
-.pagina-testo {
-    font-weight: 600;
-}
+.pagina-testo { font-weight: 600; }
 
-/* ── Login / Registrazione (iniettato via JS) ── */
+/* ── Login ── */
 .login-container {
     display: flex;
     justify-content: center;
@@ -345,13 +297,8 @@ main h2 {
     transition: border-color 0.2s;
 }
 
-.login-box input::placeholder {
-    color: #8a9bb0;
-}
-
-.login-box input:focus {
-    border-color: #c8843a;
-}
+.login-box input::placeholder { color: #8a9bb0; }
+.login-box input:focus { border-color: #c8843a; }
 
 .login-box button {
     width: 100%;
@@ -367,19 +314,131 @@ main h2 {
     transition: background-color 0.2s;
 }
 
-.login-box button:hover {
-    background-color: #e09a4a;
+.login-box button:hover { background-color: #e09a4a; }
+.login-box p { font-size: 13px; color: #8a9bb0; text-align: center; }
+.link { color: #c8843a; cursor: pointer; text-decoration: underline; font-weight: 600; }
+
+/* ── Chatbot ── */
+.chatbot {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 96%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
-.login-box p {
-    font-size: 13px;
-    color: #8a9bb0;
-    text-align: center;
+.chatbot h2 {
+    font-family: "Lora", serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #e8ecef;
 }
 
-.link {
-    color: #c8843a;
+#risposta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 340px;
+    max-height: 520px;
+    padding: 1.2rem;
+    background-color: rgba(26, 35, 50, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(200, 132, 58, 0.2);
+    border-radius: 16px;
+    overflow-y: scroll;
+    scrollbar-width: none;  /*firefox*/
+
+}
+
+#risposta::-webkit-scrollbar {
+    display: none;
+}
+
+.messaggio {
+    max-width: 75%;
+    padding: 10px 16px;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    line-height: 1.6;
+    border-radius: 16px;
+}
+
+.messaggio-user {
+    align-self: flex-end;
+    background-color: rgba(200, 132, 58, 0.28);
+    color: #e8ecef;
+    border: 1px solid rgba(200, 132, 58, 0.45);
+    border-bottom-right-radius: 4px;
+}
+
+.messaggio-bot {
+    align-self: flex-start;
+    background-color: rgba(36, 48, 64, 0.85);
+    color: #c2ccd8;
+    border: 1px solid rgba(200, 132, 58, 0.18);
+    border-bottom-left-radius: 4px;
+}
+
+.messaggio-bot b { color: #c8843a; font-weight: 700; }
+
+.messaggio-typing { padding: 14px 16px; }
+
+.messaggio-typing span {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #c8843a;
+    margin: 0 2px;
+    animation: bounce 1.2s infinite;
+}
+
+.messaggio-typing span:nth-child(2) { animation-delay: 0.2s; }
+.messaggio-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30%            { transform: translateY(-6px); }
+}
+
+.chat-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-input-row input {
+    flex: 1;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 40px;
+    border: 1px solid rgba(200, 132, 58, 0.35);
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #e8ecef;
+    font-family: "Lora", serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.chat-input-row input::placeholder { color: #8a9bb0; }
+.chat-input-row input:focus { border-color: #c8843a; }
+
+.chat-input-row button {
+    height: 50px;
+    padding: 0 24px;
+    border-radius: 40px;
+    border: none;
+    background-color: #c8843a;
+    color: #1a2332;
+    font-family: "Lora", serif;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    text-decoration: underline;
-    font-weight: 600;
+    transition: background-color 0.2s;
 }
+
+.chat-input-row button:hover { background-color: #e09a4a; }
