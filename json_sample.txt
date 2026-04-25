@@ -1,0 +1,34 @@
+[
+	{
+		"nome": "Nome Evento",
+		"date_time": [
+			{
+				"st": "2026-04-24T16:00:00+02:00",
+				"en": "2026-04-24T20:00:00+02:00"
+			},
+			{
+				"st": "2026-04-25T09:00:00+02:00",
+				"en": "2026-04-25T20:00:00+02:00"
+			}
+		],
+		"luogo": {
+			"name": "Luogo evento",
+			"lat": 26.78,
+			"lon": 12.3
+		},
+		"desc": "Questa è una strabiliante descrizione dell'evento.",
+		"tags": ["tag1", "tag2", "tag3"],
+		"targets": ["target1", "target2", "target3"],
+		"org_id": 1234567890,
+		"imgs": [
+			{
+				"alt": "Immagine bellissima",
+				"src": "Immagine.jpg"
+			}
+		],
+		"rank": {
+			"stars": 3.27,
+			"sponsored": false
+		}
+	}
+]
