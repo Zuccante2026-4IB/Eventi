@@ -1,34 +1,286 @@
 [
-	{
-		"nome": "Nome Evento",
-		"date_time": [
-			{
-				"st": "2026-04-24T16:00:00+02:00",
-				"en": "2026-04-24T20:00:00+02:00"
-			},
-			{
-				"st": "2026-04-25T09:00:00+02:00",
-				"en": "2026-04-25T20:00:00+02:00"
-			}
-		],
-		"luogo": {
-			"name": "Luogo evento",
-			"lat": 26.78,
-			"lon": 12.3
-		},
-		"desc": "Questa è una strabiliante descrizione dell'evento.",
-		"tags": ["tag1", "tag2", "tag3"],
-		"targets": ["target1", "target2", "target3"],
-		"org_id": 1234567890,
-		"imgs": [
-			{
-				"alt": "Immagine bellissima",
-				"src": "Immagine.jpg"
-			}
-		],
-		"rank": {
-			"stars": 3.27,
-			"sponsored": false
-		}
-	}
+  {
+    "nome": "Festival della Laguna",
+    "date_time": [
+      {
+        "st": "2026-06-12T18:00:00+02:00",
+        "en": "2026-06-12T23:00:00+02:00"
+      },
+      {
+        "st": "2026-06-13T10:00:00+02:00",
+        "en": "2026-06-13T22:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Arsenale di Venezia",
+      "lat": 45.4375,
+      "lon": 12.3487
+    },
+    "desc": "Festival tra musica, arte e spettacoli nella suggestiva laguna veneziana.",
+    "tags": ["musica", "arte", "festival"],
+    "targets": ["giovani", "turisti", "famiglie"],
+    "org_id": 2000000001,
+    "imgs": [
+      {
+        "alt": "Concerto serale",
+        "src": "festival_laguna.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.5,
+      "sponsored": true
+    }
+  },
+  {
+    "nome": "Mercato Artigianale",
+    "date_time": [
+      {
+        "st": "2026-05-02T09:00:00+02:00",
+        "en": "2026-05-02T19:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Campo Santa Margherita",
+      "lat": 45.4342,
+      "lon": 12.3265
+    },
+    "desc": "Mercato con prodotti artigianali tipici veneziani.",
+    "tags": ["artigianato", "mercato"],
+    "targets": ["turisti", "famiglie"],
+    "org_id": 2000000002,
+    "imgs": [
+      {
+        "alt": "Bancarelle",
+        "src": "mercato.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.1,
+      "sponsored": false
+    }
+  },
+  {
+    "nome": "Regata Storica",
+    "date_time": [
+      {
+        "st": "2026-09-06T15:30:00+02:00",
+        "en": "2026-09-06T19:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Canal Grande",
+      "lat": 45.4408,
+      "lon": 12.3155
+    },
+    "desc": "Gara tradizionale tra gondole con costumi storici.",
+    "tags": ["tradizione", "sport"],
+    "targets": ["turisti"],
+    "org_id": 2000000003,
+    "imgs": [
+      {
+        "alt": "Gondole",
+        "src": "regata.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.8,
+      "sponsored": true
+    }
+  },
+  {
+    "nome": "Cinema all'Aperto",
+    "date_time": [
+      {
+        "st": "2026-07-20T21:00:00+02:00",
+        "en": "2026-07-20T23:30:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Lido di Venezia",
+      "lat": 45.4142,
+      "lon": 12.3731
+    },
+    "desc": "Film sotto le stelle vicino al mare.",
+    "tags": ["cinema", "estate"],
+    "targets": ["giovani", "coppie"],
+    "org_id": 2000000004,
+    "imgs": [
+      {
+        "alt": "Cinema",
+        "src": "cinema.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.3,
+      "sponsored": false
+    }
+  },
+  {
+    "nome": "Mostra d'Arte Contemporanea",
+    "date_time": [
+      {
+        "st": "2026-08-10T10:00:00+02:00",
+        "en": "2026-08-10T18:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Punta della Dogana",
+      "lat": 45.4305,
+      "lon": 12.3346
+    },
+    "desc": "Esposizione di artisti contemporanei internazionali.",
+    "tags": ["arte", "mostra"],
+    "targets": ["appassionati"],
+    "org_id": 2000000005,
+    "imgs": [
+      {
+        "alt": "Arte moderna",
+        "src": "mostra.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.6,
+      "sponsored": false
+    }
+  },
+  {
+    "nome": "Concerto Jazz in Piazza",
+    "date_time": [
+      {
+        "st": "2026-06-25T20:30:00+02:00",
+        "en": "2026-06-25T23:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Piazza San Marco",
+      "lat": 45.4340,
+      "lon": 12.3388
+    },
+    "desc": "Concerto jazz dal vivo nella piazza più famosa di Venezia.",
+    "tags": ["musica", "jazz"],
+    "targets": ["giovani", "turisti"],
+    "org_id": 2000000006,
+    "imgs": [
+      {
+        "alt": "Concerto jazz",
+        "src": "jazz.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.7,
+      "sponsored": true
+    }
+  },
+  {
+    "nome": "Tour Gastronomico Veneziano",
+    "date_time": [
+      {
+        "st": "2026-05-15T12:00:00+02:00",
+        "en": "2026-05-15T15:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Rialto",
+      "lat": 45.4380,
+      "lon": 12.3358
+    },
+    "desc": "Degustazione di piatti tipici veneziani.",
+    "tags": ["cibo", "tour"],
+    "targets": ["turisti"],
+    "org_id": 2000000007,
+    "imgs": [
+      {
+        "alt": "Cibo veneziano",
+        "src": "food.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.4,
+      "sponsored": false
+    }
+  },
+  {
+    "nome": "Workshop Maschere Veneziane",
+    "date_time": [
+      {
+        "st": "2026-03-10T14:00:00+01:00",
+        "en": "2026-03-10T17:00:00+01:00"
+      }
+    ],
+    "luogo": {
+      "name": "Dorsoduro",
+      "lat": 45.4333,
+      "lon": 12.3267
+    },
+    "desc": "Laboratorio creativo per creare maschere tradizionali.",
+    "tags": ["laboratorio", "arte"],
+    "targets": ["famiglie", "studenti"],
+    "org_id": 2000000008,
+    "imgs": [
+      {
+        "alt": "Maschere",
+        "src": "maschere.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.2,
+      "sponsored": false
+    }
+  },
+  {
+    "nome": "Spettacolo Teatrale in Laguna",
+    "date_time": [
+      {
+        "st": "2026-07-05T19:00:00+02:00",
+        "en": "2026-07-05T21:30:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Isola di San Giorgio",
+      "lat": 45.4297,
+      "lon": 12.3432
+    },
+    "desc": "Performance teatrale immersiva sull'acqua.",
+    "tags": ["teatro", "spettacolo"],
+    "targets": ["coppie", "turisti"],
+    "org_id": 2000000009,
+    "imgs": [
+      {
+        "alt": "Teatro",
+        "src": "teatro.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.5,
+      "sponsored": true
+    }
+  },
+  {
+    "nome": "Festa del Redentore",
+    "date_time": [
+      {
+        "st": "2026-07-18T20:00:00+02:00",
+        "en": "2026-07-19T01:00:00+02:00"
+      }
+    ],
+    "luogo": {
+      "name": "Canale della Giudecca",
+      "lat": 45.4285,
+      "lon": 12.3239
+    },
+    "desc": "Tradizionale festa veneziana con fuochi d'artificio.",
+    "tags": ["festa", "tradizione"],
+    "targets": ["tutti"],
+    "org_id": 2000000010,
+    "imgs": [
+      {
+        "alt": "Fuochi",
+        "src": "redentore.jpg"
+      }
+    ],
+    "rank": {
+      "stars": 4.9,
+      "sponsored": true
+    }
+  }
 ]
