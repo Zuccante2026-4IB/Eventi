@@ -19,7 +19,7 @@ Applicazione per la gestione, visualizzazione e filtraggio di eventi, con funzio
 
   * Responsabile: *Alvise*
 
-* **Scroll a caricamento (infinite scroll)**
+* **Scroll a caricamento **
 
   * Responsabili: *Zainab*, *William*
 
