@@ -3,6 +3,7 @@ const eventiPerPagina = 10;
 let paginaCorrente    = 0;
 let totalePagine      = 0;
 
+/* FETCH DEL SERVER INTERNO A EVENTI
 fetch('http://127.0.0.1:3000/eventi')
     .then(res => res.json())
     .then(dati => {
@@ -14,6 +15,26 @@ fetch('http://127.0.0.1:3000/eventi')
         document.getElementById("eventi").innerHTML = "Errore nel caricamento dei dati.";
         console.error(err);
     });
+//*/
+
+//FETCH ALL'API
+fetch('https://strapi.brusegan.it/api/eventos?populate=*', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer cff92e74316f57f7cd63ce9f93cf8fb309f0f15f673ed41d81afe4f1569a81f88d6b1b4268a94f97e5eb52802a1e1b49ac6702c060f1b96d1d02fa3103f84df65445e2307cd5f15b3ccb141fc91147470465304d44d6f53784989b971c4468aa6932c0b9dc3ed37da4a33e2cd58fcb9fdb87863ead235adca7c87513f47f6e1c',
+        'Content-Type': 'application/json'
+    }
+})
+.then(res => res.json())
+.then(dati => {
+    arr.push(...dati.data);
+    totalePagine = Math.ceil(arr.length / eventiPerPagina);
+    mostra_pagina(0);
+})
+.catch(err => {
+    document.getElementById("eventi").innerHTML = "Errore nel caricamento dei dati.";
+    console.error(err);
+});
 
 function mostra_pagina(n) {
     paginaCorrente = n;
