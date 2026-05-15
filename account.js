@@ -30,7 +30,8 @@ function registrazione(username, password) {
         alert("Username già in uso!");
         return;
     }
-    salvataggio({ username, password, ruolo });
+    const nuovoUtente = { id: Date.now(), username, password, ruolo };
+    salvataggio(nuovoUtente);
     alert("Registrazione completata!");
 }
 
@@ -42,6 +43,10 @@ function login(username, password) {
     if (!utenteTrovato) {
         alert("Riprova, credenziali errate o utente non registrato");
     } else {
+        if (!utenteTrovato.id) {
+            utenteTrovato.id = Date.now();
+            localStorage.setItem("utenti", JSON.stringify(utenti));
+        }
         localStorage.setItem("utenteLoggato", JSON.stringify(utenteTrovato));
         if (utenteTrovato.ruolo === "organizzatore") {
             window.location.href = "index.html"; // da decidere
