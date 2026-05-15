@@ -1,33 +1,16 @@
-const API_BASE = 'https://strapi.brusegan.it/api';
-const TOKEN = 'Bearer cff92e74316f57f7cd63ce9f93cf8fb309f0f15f673ed41d81afe4f1569a81f88d6b1b4268a94f97e5eb52802a1e1b49ac6702c060f1b96d1d02fa3103f84df65445e2307cd5f15b3ccb141fc91147470465304d44d6f53784989b971c4468aa6932c0b9dc3ed37da4a33e2cd58fcb9fdb87863ead235adca7c87513f47f6e1c';
-const HEADERS = {
-    'Authorization': TOKEN,
-    'Content-Type': 'application/json'
-};
+// API_BASE, TOKEN, HEADERS, escHtml, getCurrentUser, isOrganizzatore,
+// stringDate sono forniti da api.js (incluso prima di questo script).
 
 let arr = [];
 const eventiPerPagina = 10;
 let paginaCorrente = 0;
 let totalePagine = 0;
 
-function isOrganizzatore() {
-    const u = JSON.parse(localStorage.getItem("utenteLoggato"));
-    return u && u.ruolo === "organizzatore";
-}
-
-function getCurrentUser() {
-    return JSON.parse(localStorage.getItem("utenteLoggato"));
-}
-
 async function lettura() {
     try {
         const res  = await fetch(`${API_BASE}/eventos?populate=*`, { headers: HEADERS });
         const dati = await res.json();
-        arr = dati.data;
-
-        // AGGIUNGI QUESTA RIGA TEMPORANEA:
-        console.log("Primo evento:", JSON.stringify(arr[0], null, 2));
-
+        arr = dati.data || [];
         totalePagine = Math.ceil(arr.length / eventiPerPagina);
         mostra_pagina(0);
     } catch (error) {
@@ -49,58 +32,47 @@ function mostra_pagina(n) {
         const card = document.createElement("div");
         card.className = "evento-card";
         card.style.cursor = "pointer";
-        card.onclick = () => mostraDettagli(evento);
+        card.addEventListener("click", () => mostraDettagli(evento));
 
-        card.innerHTML = `
-            <div class="evento-nome">${evento.nome}</div>
-            <div class="evento-info">
-        `;
+        const dateHTML = (evento.date_time || [])
+            .map(dt => `<span>${escHtml(stringDate(dt.st))} - ${escHtml(stringDate(dt.en))}</span>`)
+            .join("");
 
-        evento.date_time.forEach(dt => {
-            card.innerHTML += `
-                <span>${stringDate(dt.st)} - ${stringDate(dt.en)}</span>
-            `;
-        });
+        const luogoName = evento.luogo ? escHtml(evento.luogo.name) : "—";
 
-        card.innerHTML += `
-                <span>${evento.luogo.name}</span>
-            </div>
-            <div class="evento-desc">${evento.desc}</div>
-        `;
+        const tagsHTML = (evento.tags || [])
+            .map(t => `<span class="tag">${escHtml(t)}</span>`)
+            .join("");
 
-        let tagsHTML = "";
-        if (evento.tags) {
-            evento.tags.forEach(t => {
-                tagsHTML += `<span class="tag">${t}</span>`;
-            });
-        }
-        card.innerHTML += `<div class="evento-tags">${tagsHTML}</div>`;
+        const targetsHTML = (evento.target || [])
+            .map(t => `<span class="targets">${escHtml(t.fascia)}</span>`)
+            .join("");
 
-        let targetsHTML = "";
-        if (evento.target) {
-            evento.target.forEach(t => {
-                targetsHTML += `<span class="targets">${t.fascia}</span>`;
-            });
-        }
-        card.innerHTML += `<div class="evento-targets">${targetsHTML}</div>`;
-
-        let imgsHTML = "";
-        if (evento.imgs) {
-            evento.imgs.forEach(img => {
+        const imgsHTML = (evento.imgs || [])
+            .map(img => {
                 const url = img.url || img.src || "";
                 const alt = img.alternativeText || img.alt || "";
-                imgsHTML += `<img src="${url}" alt="${alt}" />`;
-            });
-        }
-        card.innerHTML += `<div class="evento-img">${imgsHTML}</div>`;
+                return `<img src="${escHtml(url)}" alt="${escHtml(alt)}" />`;
+            })
+            .join("");
 
-        let stars = "—";
-        if (evento.rank) {
-            stars = evento.rank.stars;
-        }
-        card.innerHTML += `<div class="evento-rank">Valutazione: ${stars}/5</div>`;
+        const stars = evento.rank ? escHtml(evento.rank.stars) : "—";
 
-        if (isOrganizzatore() && String(evento.org_id) === String(getCurrentUser().id)) {
+        card.innerHTML = `
+            <div class="evento-nome">${escHtml(evento.nome)}</div>
+            <div class="evento-info">
+                ${dateHTML}
+                <span>${luogoName}</span>
+            </div>
+            <div class="evento-desc">${escHtml(evento.desc)}</div>
+            <div class="evento-tags">${tagsHTML}</div>
+            <div class="evento-targets">${targetsHTML}</div>
+            <div class="evento-img">${imgsHTML}</div>
+            <div class="evento-rank">Valutazione: ${stars}/5</div>
+        `;
+
+        const user = getCurrentUser();
+        if (isOrganizzatore() && user && String(evento.org_id) === String(user.id)) {
             const admin = document.createElement("div");
             admin.className = "evento-admin";
             const btn = document.createElement("button");
@@ -155,8 +127,6 @@ function aggiorna_paginazione() {
 }
 
 async function eliminaEvento(documentId, nome) {
-    console.log("Provo ad eliminare", documentId, nome);
-
     if (!confirm(`Sei sicuro di voler eliminare "${nome}"?`)) return;
 
     const currentUser = getCurrentUser();
@@ -176,14 +146,12 @@ async function eliminaEvento(documentId, nome) {
             method: 'DELETE',
             headers: HEADERS
         });
-        console.log("res:", res);
 
         if (res.ok) {
             arr = arr.filter(e => e.documentId !== documentId);
             totalePagine = Math.ceil(arr.length / eventiPerPagina);
             if (paginaCorrente >= totalePagine && paginaCorrente > 0) paginaCorrente--;
             mostra_pagina(paginaCorrente);
-            console.log("eliminato con successo");
         } else {
             alert("Errore durante l'eliminazione.");
         }
@@ -191,29 +159,6 @@ async function eliminaEvento(documentId, nome) {
         console.error(err);
         alert("Errore di rete.");
     }
-}
-
-// Gestisce sia il formato custom API "YYYYMMDDThh:mm:ssUTC+TZ"
-// sia oggetti Date standard
-function stringDate(when) {
-    let dd, mm, yyyy, hh, min;
-
-    if (typeof when === "string") {
-        // Formato custom: "20260501T20:00:00UTC+02"
-        const m = when.match(/^(\d{4})(\d{2})(\d{2})T(\d{2}):(\d{2})/);
-        if (!m) return "—";
-        yyyy = m[1]; mm = m[2]; dd = m[3]; hh = m[4]; min = m[5];
-    } else if (when instanceof Date && !isNaN(when)) {
-        dd   = String(when.getDate()).padStart(2, "0");
-        mm   = String(when.getMonth() + 1).padStart(2, "0");
-        yyyy = when.getFullYear();
-        hh   = String(when.getHours()).padStart(2, "0");
-        min  = String(when.getMinutes()).padStart(2, "0");
-    } else {
-        return "—";
-    }
-
-    return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

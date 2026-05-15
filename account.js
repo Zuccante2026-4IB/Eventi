@@ -1,5 +1,6 @@
+// hashPassword(), isHashed() e altre utility provengono da api.js.
 
-function account(tipo) {
+async function account(tipo) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
@@ -14,46 +15,69 @@ function account(tipo) {
             alert(risultato.errore);
             return;
         }
-        registrazione(username, password);
+        await registrazione(username, password);
     } else if (tipo === "login") {
-        login(username, password);
+        await login(username, password);
     }
 }
 
-function registrazione(username, password) {
-    const ruolo = document.querySelector('input[name="ruolo"]:checked').value;
+async function registrazione(username, password) {
+    const radio = document.querySelector('input[name="ruolo"]:checked');
+    if (!radio) {
+        alert("Seleziona un ruolo.");
+        return;
+    }
+    const ruolo = radio.value;
     let utenti = JSON.parse(localStorage.getItem("utenti")) || [];
 
-    const esisteGia = utenti.find(u => u.username === username);
-
-    if (esisteGia) {
+    if (utenti.find(u => u.username === username)) {
         alert("Username già in uso!");
         return;
     }
-    const nuovoUtente = { id: Date.now(), username, password, ruolo };
-    salvataggio(nuovoUtente);
+
+    const passwordHash = await hashPassword(password);
+    const nuovoUtente  = { id: Date.now(), username, password: passwordHash, ruolo };
+
+    utenti.push(nuovoUtente);
+    localStorage.setItem("utenti",        JSON.stringify(utenti));
+    localStorage.setItem("utenteLoggato", JSON.stringify(nuovoUtente));
     alert("Registrazione completata!");
+    window.location.href = "Index.html";
 }
 
-function login(username, password) {
+async function login(username, password) {
     let utenti = JSON.parse(localStorage.getItem("utenti")) || [];
+    const candidato = utenti.find(u => u.username === username);
 
-    const utenteTrovato = utenti.find(u => u.username === username && u.password === password);
-
-    if (!utenteTrovato) {
+    if (!candidato) {
         alert("Riprova, credenziali errate o utente non registrato");
+        return;
+    }
+
+    const inputHash = await hashPassword(password);
+    let valido = false;
+
+    if (isHashed(candidato.password)) {
+        // Confronto fra hash
+        valido = candidato.password === inputHash;
     } else {
-        if (!utenteTrovato.id) {
-            utenteTrovato.id = Date.now();
-            localStorage.setItem("utenti", JSON.stringify(utenti));
-        }
-        localStorage.setItem("utenteLoggato", JSON.stringify(utenteTrovato));
-        if (utenteTrovato.ruolo === "organizzatore") {
-            window.location.href = "index.html"; // da decidere
-        } else {
-            window.location.href = "index.html" // da decidere
+        // Utente "legacy" registrato prima dell'introduzione dell'hashing:
+        // confronto in chiaro e migrazione trasparente.
+        if (candidato.password === password) {
+            valido = true;
+            candidato.password = inputHash;
         }
     }
+
+    if (!valido) {
+        alert("Riprova, credenziali errate o utente non registrato");
+        return;
+    }
+
+    if (!candidato.id) candidato.id = Date.now();
+    localStorage.setItem("utenti",        JSON.stringify(utenti));
+    localStorage.setItem("utenteLoggato", JSON.stringify(candidato));
+    window.location.href = "Index.html";
 }
 
 function validaInput(username, password) {
@@ -74,12 +98,6 @@ function validaInput(username, password) {
     }
 
     return { valido: true };
-}
-
-function salvataggio(utente) {
-    let utenti = JSON.parse(localStorage.getItem("utenti")) || [];
-    utenti.push(utente);
-    localStorage.setItem("utenti", JSON.stringify(utenti));
 }
 
 function mostraLoginPage() {
@@ -122,27 +140,15 @@ function mostraRegistrazionePage() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const utenteLoggato = JSON.parse(localStorage.getItem("utenteLoggato"));
-    const container = document.getElementById("aggiungi");
+    if (!window.location.href.includes("login.html")) return;
 
-    if (container && utenteLoggato && utenteLoggato.ruolo === "organizzatore") {
-        container.innerHTML = ` 
-            <button> + </button>
-        `;
-    }
+    mostraLoginPage();
 
-    if (window.location.href.includes("login.html")) {
-        mostraLoginPage();
-
-         document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            const titolo = document.querySelector(".login-box h2").textContent;
-            if (titolo === "Login") {
-                account('login');
-            } else {
-                account('registrazione');
-            }
-        }
+    document.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") return;
+        const box = document.querySelector(".login-box h2");
+        if (!box) return;
+        const tipo = box.textContent === "Login" ? "login" : "registrazione";
+        account(tipo);
     });
-    }
 });

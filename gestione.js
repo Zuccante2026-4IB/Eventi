@@ -1,13 +1,5 @@
-const API_BASE = 'https://strapi.brusegan.it/api';
-const TOKEN = 'Bearer cff92e74316f57f7cd63ce9f93cf8fb309f0f15f673ed41d81afe4f1569a81f88d6b1b4268a94f97e5eb52802a1e1b49ac6702c060f1b96d1d02fa3103f84df65445e2307cd5f15b3ccb141fc91147470465304d44d6f53784989b971c4468aa6932c0b9dc3ed37da4a33e2cd58fcb9fdb87863ead235adca7c87513f47f6e1c';
-const HEADERS = {
-    'Authorization': TOKEN,
-    'Content-Type': 'application/json'
-};
-
-function getCurrentUser() {
-    return JSON.parse(localStorage.getItem("utenteLoggato"));
-}
+// API_BASE, TOKEN, HEADERS, escHtml, getCurrentUser
+// sono forniti da api.js (incluso prima di questo script).
 
 function verificaAccesso() {
     const u = getCurrentUser();
@@ -179,13 +171,20 @@ function renderForm(evento) {
     }
 }
 
-// Converte "YYYY-MM-DDTHH:MM" → "YYYYMMDDThh:mm:00UTC+00"
+// Converte "YYYY-MM-DDTHH:MM" (ora locale) → "YYYYMMDDThh:mm:00UTC±HH"
+// usando l'offset reale del browser invece del fisso UTC+00.
 function toApiDate(localStr) {
     if (!localStr) return null;
     const [datePart, timePart] = localStr.split("T");
     const [yyyy, mm, dd] = datePart.split("-");
     const [hh, min] = timePart.split(":");
-    return `${yyyy}${mm}${dd}T${hh}:${min}:00UTC+00`;
+
+    // Offset locale in minuti (negativo a est di UTC: per Roma -120)
+    const offsetMin = new Date().getTimezoneOffset();
+    const sign      = offsetMin <= 0 ? "+" : "-";
+    const absOffH   = String(Math.floor(Math.abs(offsetMin) / 60)).padStart(2, "0");
+
+    return `${yyyy}${mm}${dd}T${hh}:${min}:00UTC${sign}${absOffH}`;
 }
 
 // Converte il formato custom Strapi "YYYYMMDDThh:mm:ssUTC+00" → "YYYY-MM-DDTHH:MM"
@@ -238,8 +237,6 @@ function leggiForm() {
 }
 
 async function salvaEvento(documentId) {
-    console.log("salvaEvento chiamata con documentId:", documentId, typeof documentId);
-
     const currentUser = getCurrentUser();
     if (!currentUser || currentUser.ruolo !== "organizzatore") {
         alert("Accesso riservato agli organizzatori.");
@@ -263,8 +260,6 @@ async function salvaEvento(documentId) {
 
     const url    = documentId ? `${API_BASE}/eventos/${documentId}` : `${API_BASE}/eventos`;
     const method = documentId ? 'PUT' : 'POST';
-
-    console.log("Invio", method, "a", url, "con dati:", JSON.stringify(dati, null, 2));
 
     try {
         const res = await fetch(url, {
@@ -293,15 +288,6 @@ function mostraFeedback(testo, tipo) {
     if (!el) return;
     el.className  = "form-feedback form-feedback-" + tipo;
     el.textContent = testo;
-}
-
-function escHtml(str) {
-    if (!str) return "";
-    return String(str)
-        .replace(/&/g,  "&amp;")
-        .replace(/"/g,  "&quot;")
-        .replace(/</g,  "&lt;")
-        .replace(/>/g,  "&gt;");
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
