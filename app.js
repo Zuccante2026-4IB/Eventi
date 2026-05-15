@@ -52,7 +52,8 @@ function mostra_pagina(n) {
             .map(img => {
                 const url = img.url || img.src || "";
                 const alt = img.alternativeText || img.alt || "";
-                return `<img src="${escHtml(url)}" alt="${escHtml(alt)}" />`;
+                if (!url) return "";
+                return `<img src="${escHtml(url)}" alt="${escHtml(alt)}" loading="lazy" onerror="this.style.display='none'" />`;
             })
             .join("");
 
