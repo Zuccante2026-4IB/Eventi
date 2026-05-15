@@ -48,7 +48,6 @@ function renderForm(evento) {
     let luogoLon    = "";
     let imgAlt      = "";
     let imgSrc      = "";
-    let tagsStr     = "";
     let dtSt        = "";
     let dtEn        = "";
     let sponsored   = false;
@@ -68,10 +67,6 @@ function renderForm(evento) {
         if (evento.imgs && evento.imgs.length > 0) {
             imgAlt = evento.imgs[0].alt || "";
             imgSrc = evento.imgs[0].src || "";
-        }
-
-        if (evento.tags) {
-            tagsStr = evento.tags.join(", ");
         }
 
         if (evento.date_time && evento.date_time.length > 0) {
@@ -124,11 +119,6 @@ function renderForm(evento) {
             <div class="form-section">
                 <label>Descrizione</label>
                 <textarea id="f-desc" rows="4" placeholder="Descrizione dell'evento">${escHtml(desc)}</textarea>
-            </div>
-
-            <div class="form-section">
-                <label>Tag (separati da virgola)</label>
-                <input id="f-tags" type="text" placeholder="musica, arte, festival" value="${escHtml(tagsStr)}">
             </div>
 
             <div class="form-section">
@@ -214,14 +204,6 @@ function leggiForm() {
         fasce.push({ fascia: cb.value });
     });
 
-    const tags = [];
-    document.getElementById('f-tags').value
-        .split(',')
-        .forEach(t => {
-            const trimmed = t.trim();
-            if (trimmed !== "") tags.push(trimmed);
-        });
-
     const st = document.getElementById('f-st').value;
     const en = document.getElementById('f-en').value;
     const date_time = [];
@@ -245,7 +227,6 @@ function leggiForm() {
             lat:  parseFloat(document.getElementById('f-lat').value) || 0,
             lon:  parseFloat(document.getElementById('f-lon').value) || 0
         },
-        tags:   tags,
         target: fasce,
         org_id: currentUser.id,
         imgs:   imgs,

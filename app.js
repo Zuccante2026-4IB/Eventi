@@ -101,11 +101,17 @@ function mostra_pagina(n) {
         card.innerHTML += `<div class="evento-rank">Valutazione: ${stars}/5</div>`;
 
         if (isOrganizzatore() && String(evento.org_id) === String(getCurrentUser().id)) {
-            card.innerHTML += `
-                <div class="evento-admin">
-                    <button class="btn-elimina" onclick="eliminaEvento('${evento.documentId}', '${evento.nome.replace(/'/g, "\\'")}')">🗑️ Elimina</button>
-                </div>
-            `;
+            const admin = document.createElement("div");
+            admin.className = "evento-admin";
+            const btn = document.createElement("button");
+            btn.className = "btn-elimina";
+            btn.textContent = "🗑️ Elimina";
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                eliminaEvento(evento.documentId, evento.nome);
+            });
+            admin.appendChild(btn);
+            card.appendChild(admin);
         }
 
         div_eventi.appendChild(card);
