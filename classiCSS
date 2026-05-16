@@ -1,0 +1,251 @@
+═══════════════════════════════════════════════════════════
+  LISTA COMPLETA ELEMENTI CSS — TUTTI I FILE
+  Progetto GetUP
+═══════════════════════════════════════════════════════════
+
+
+───────────────────────────────────────────────────────────
+  RESET GLOBALE (style.css)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Note
+─────────────────────────────────────────────────────────────────────────────────
+Reset margin/padding/box-sizing       *, *::before, *::after               tutti gli elementi
+
+
+───────────────────────────────────────────────────────────
+  BODY E LAYOUT (tutte le pagine)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Note
+─────────────────────────────────────────────────────────────────────────────────
+Sfondo, font, layout colonna          body.body1                           tutte le pagine
+
+
+───────────────────────────────────────────────────────────
+  HEADER (tutte le pagine)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Note
+─────────────────────────────────────────────────────────────────────────────────
+Barra superiore                       header                               tutte le pagine
+Contenitore titolo header             header div / .header-title           tutte le pagine
+Testo "Progetto GetUP"                .headtitle                           tutte le pagine
+Contenitore navigazione               nav                                  tutte le pagine
+Lista orizzontale link nav            .navlist                             tutte le pagine
+Singolo link navigazione              .navlist li a                        tutte le pagine
+Ultimo link (senza bordo destro)      .navlist li:last-child a             tutte le pagine
+Hover link navigazione                .navlist li a:hover                  tutte le pagine
+
+
+───────────────────────────────────────────────────────────
+  MAIN GENERICO (tutte le pagine)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Note
+─────────────────────────────────────────────────────────────────────────────────
+Contenitore centrale pagina           main                                 tutte le pagine
+Titolo h2 generico                    main h2                              tutte le pagine
+
+
+───────────────────────────────────────────────────────────
+  TOAST NOTIFICHE (tutte le pagine)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Note
+─────────────────────────────────────────────────────────────────────────────────
+Toast generico (nascosto)             .toast                               posizione fixed bottom-right
+Toast visibile (animazione)           .toast-show                         opacity + translateY
+Toast successo verde                  .toast-successo                      tutte le pagine
+Toast errore rosso                    .toast-errore                        tutte le pagine
+
+
+───────────────────────────────────────────────────────────
+  Index.html — elementi statici HTML
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Note
+─────────────────────────────────────────────────────────────────────────────────
+Titolo "Eventi"                       main h2                              homepage
+Barra ricerca contenitore             .search-bar                          homepage
+Campo testo ricerca                   .search-bar input / #searchInput     homepage
+Placeholder campo ricerca             .search-bar input::placeholder       homepage
+Focus campo ricerca                   .search-bar input:focus              homepage
+Bottone cerca                         .search-bar button / #submit         homepage
+Hover bottone cerca                   .search-bar button:hover             homepage
+Contenitore lista card                #eventi                              homepage
+Messaggio nessun risultato            .no-results                          homepage
+Contenitore paginazione               #paginazione                         homepage
+
+
+───────────────────────────────────────────────────────────
+  app.js — card eventi (homepage)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Riga
+─────────────────────────────────────────────────────────────────────────────────
+Card evento cliccabile                .evento-card                         34
+Hover card evento                     .evento-card:hover                   34
+Titolo evento nella card              .evento-nome                         72
+Riga data e luogo                     .evento-info                         73
+Span dentro riga info                 .evento-info span                    73
+Descrizione breve                     .evento-desc                         76
+Contenitore tag                       .evento-tags                         77
+Etichetta singolo tag                 .tag                                 77
+Contenitore fascia d'eta              .evento-targets                      78
+Etichetta singola fascia              .targets                             78
+Contenitore immagine card             .evento-img                          79
+Immagine dentro card                  .evento-img img                      79
+Valutazione stelle                    .evento-rank                         80
+Badge sponsorizzato                   .sponsored                           80
+Area bottoni organizzatore            .evento-admin                        88
+Bottone elimina nella card            .btn-elimina                         91
+Hover bottone elimina                 .btn-elimina:hover                   91
+Bottone modifica nella card           .btn-modifica                        —
+Hover bottone modifica                .btn-modifica:hover                  —
+Bottone aggiungi evento               .btn-aggiungi                        148
+Hover bottone aggiungi                .btn-aggiungi:hover                  148
+
+
+───────────────────────────────────────────────────────────
+  app.js — paginazione (homepage)
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Riga
+─────────────────────────────────────────────────────────────────────────────────
+Bottone pagina numero                 .pagina-btn                          112
+Hover bottone pagina                  .pagina-btn:hover:not(:disabled)     112
+Bottone pagina disabilitato           .pagina-btn:disabled                 112
+Bottone pagina attiva                 .pagina-btn.pagina-attiva            115
+Bottoni testo prev/next               .pagina-testo                        108
+
+
+───────────────────────────────────────────────────────────
+  login.html + account.js
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Riga (account.js)
+─────────────────────────────────────────────────────────────────────────────────
+Contenitore pagina login              main#main                            —
+Contenitore esterno centrato          .login-container                     76
+Box form login/registrazione          .login-box                           77
+Titolo h2 nel box                     .login-box h2                        78
+Campo input username                  .login-box input[type="text"]        79
+Campo input password                  .login-box input[type="password"]    80
+Placeholder campi login               .login-box input::placeholder        79/80
+Focus campi login                     .login-box input:focus               79/80
+Bottone accedi/registrati             .login-box button                    81
+Hover bottone login                   .login-box button:hover              81
+Testo paragrafo sotto form            .login-box p                         82
+Link "Registrati" / "Login"           .link                                83
+Radio button selezione ruolo          input[name="ruolo"]                  100
+
+
+───────────────────────────────────────────────────────────
+  evento.html + evento.js
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Riga (evento.js)
+─────────────────────────────────────────────────────────────────────────────────
+Contenitore pagina dettaglio          main#main-evento                     —
+Box principale dettaglio              .evento-dettaglio-container          45
+Messaggio errore testo rosso          .errore-msg                          47
+Link torna alla lista                 .btn-annulla                         48
+Hover link annulla                    .btn-annulla:hover                   48
+Titolo evento grande h1               h1.evento-nome                       100
+Area bottoni organizzatore            .evento-admin                        101
+Bottone elimina nel dettaglio         .btn-elimina                         102
+Hover bottone elimina                 .btn-elimina:hover                   102
+Contenitore data e luogo              .evento-info                         104
+Data inizio/fine con emoji            .evento-data                         105
+Nome luogo con emoji                  .evento-luogo                        108
+Contenitore fascia d'eta              .evento-targets                      111
+Etichetta singola fascia              .targets                             111
+Valutazione stelle                    .evento-rank                         115
+Badge sponsorizzato                   .tag                                 115
+Immagine grande evento                .evento-dettaglio-img                120
+Contenitore descrizione markdown      .evento-desc-detail                  123
+Heading h1 nella descrizione          .evento-desc-detail h1               123
+Heading h2 nella descrizione          .evento-desc-detail h2               123
+Heading h3 nella descrizione          .evento-desc-detail h3               123
+Lista ul nella descrizione            .evento-desc-detail ul               123
+Link nella descrizione                .evento-desc-detail a                123
+
+
+───────────────────────────────────────────────────────────
+  gestione.html + gestione.js
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Riga (gestione.js)
+─────────────────────────────────────────────────────────────────────────────────
+Contenitore pagina form               main#main-gestione                   —
+Contenitore form principale           .gestione-container                  60
+Titolo h2 del form                    .gestione-container h2               61
+Sottotitolo descrittivo form          .gestione-sub                        —
+Sezione singola label + input         .form-section                        63
+Label sopra ogni campo                .form-section label                  64
+Input testo generico                  .form-section input[type="text"]     65
+Input numero (lat/lon)                .form-section input[type="number"]   85/90
+Input datetime-local (date)           .form-section input[type="datetime-local"]  70/75
+Textarea descrizione                  .form-section textarea               95
+Focus su input del form               .form-section input:focus            65
+Focus su textarea                     .form-section textarea:focus         95
+Placeholder input form                .form-section input::placeholder     65
+Placeholder textarea form             .form-section textarea::placeholder  95
+Colore schema picker datetime         input[type="datetime-local"]         70/75
+Input nome evento                     #f-nome                              65
+Input datetime inizio                 #f-st                                70
+Input datetime fine                   #f-en                                75
+Input nome luogo                      #f-luogo-name                        81
+Input latitudine                      #f-lat                               85
+Input longitudine                     #f-lon                               90
+Textarea descrizione                  #f-desc                              95
+Input URL immagine                    #f-img-src                           122
+Input alt immagine                    #f-img-alt                           127
+Checkbox sponsorizzato                #f-sponsored                         132
+Riga doppia affiancata                .form-row                            68
+Responsive riga doppia mobile         .form-row (max-width: 560px)         68
+Gruppo checkbox fascia eta            .checkbox-group                      100
+Singola checkbox pill                 .check-label                         102
+Hover singola checkbox pill           .check-label:hover                   102
+Checkbox accent color                 .check-label input[type="checkbox"]  102
+Checkbox inline variante              .form-check-inline                   —
+Label dentro checkbox inline          .form-check-inline label             —
+Checkbox dentro form-check-inline     .form-check-inline input[type="checkbox"]  —
+Riga bottoni salva/annulla            .form-actions                        137
+Bottone salva/crea evento             .btn-salva                           138
+Hover bottone salva                   .btn-salva:hover                     138
+Link annulla                          .btn-annulla                         141
+Hover link annulla                    .btn-annulla:hover                   141
+Contenitore messaggio feedback        #form-feedback                       144
+Feedback generico                     .form-feedback                       144
+Feedback successo verde               .form-feedback-successo              144
+Feedback errore rosso                 .form-feedback-errore                144
+
+
+───────────────────────────────────────────────────────────
+  chat.html + chat.js
+───────────────────────────────────────────────────────────
+
+Elemento                              Selettore CSS                        Riga (chat.js)
+─────────────────────────────────────────────────────────────────────────────────
+Contenitore pagina chat               main.chatbot                         —
+Titolo "Chiedi di eventi..."          .chatbot h2                          —
+Area messaggi scrollabile             #risposta                            111
+Nascondere scrollbar firefox          #risposta (scrollbar-width: none)    111
+Nascondere scrollbar webkit           #risposta::-webkit-scrollbar         111
+Bolla generica messaggio              .messaggio                           113
+Bolla messaggio utente destra         .messaggio-user                      113
+Bolla messaggio bot sinistra          .messaggio-bot                       113
+Testo bold nelle risposte bot         .messaggio-bot b                     116
+Bolla indicatore typing               .messaggio-bot.messaggio-typing      126
+Puntino animato 1                     .messaggio-typing span               129
+Puntino animato 2                     .messaggio-typing span:nth-child(2)  129
+Puntino animato 3                     .messaggio-typing span:nth-child(3)  129
+Animazione bounce puntini             @keyframes bounce                    129
+Riga input + bottone                  .chat-input-row                      —
+Campo input testo utente              .chat-input-row input / #user-text   152
+Placeholder input chat                .chat-input-row input::placeholder   152
+Focus input chat                      .chat-input-row input:focus          152
+Bottone invia                         .chat-input-row button / #invia-btn  158
+Hover bottone invia                   .chat-input-row button:hover         158
