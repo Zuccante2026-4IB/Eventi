@@ -1,9 +1,3 @@
-// ─────────────────────────────────────────────
-//  chat.js — pagina chatbot (chat.html)
-//  Responsabilità: trovare risposte simulate,
-//  gestire i messaggi, animare il typing
-// ─────────────────────────────────────────────
-
 const risposte = [
     {
         chiavi: ['concert', 'barocc', 'music', 'san vidal'],
@@ -87,7 +81,7 @@ const risposte = [
     },
     {
         chiavi: ['ciao', 'salve', 'buongiorno', 'buonasera', 'hey', 'aiuto', 'help'],
-        testo: 'Ciao! 👋 Sono il chatbot di <b>Progetto GetUp</b>. Chiedimi degli eventi di maggio a Venezia!'
+        testo: 'Ciao! 👋 Sono <b>Kith</b>, il tuo assistente di VenEventi. Chiedimi degli eventi di maggio a Venezia!'
     }
 ];
 
@@ -95,8 +89,6 @@ const DEFAULT_RISPOSTA = 'Non ho trovato informazioni su questo. Prova a chieder
 
 // ─────────────────────────────────────────────
 //  trova_risposta(input)
-//  Normalizza il testo (minuscolo, senza accenti)
-//  e cerca una corrispondenza nelle chiavi
 // ─────────────────────────────────────────────
 function trova_risposta(input) {
     const testo = input
@@ -112,34 +104,54 @@ function trova_risposta(input) {
 
 // ─────────────────────────────────────────────
 //  aggiungi_messaggio(testo, tipo)
-//  tipo: "user" | "bot"
-//  Per i messaggi bot usa innerHTML (supporta <b>),
-//  per l'utente usa textContent (più sicuro)
+//  Crea le righe con la struttura del tuo HTML:
+//    AI  → .messagerow-ai  > img + .message-ai
+//    User→ .messagerow-user > .message-user + img
 // ─────────────────────────────────────────────
 function aggiungi_messaggio(testo, tipo) {
-    const risposta = document.getElementById('risposta');
-    const div = document.createElement('div');
-    div.className = 'messaggio messaggio-' + tipo;
+    const chatarea = document.querySelector('.chatarea');
 
-    if (tipo === 'bot') div.innerHTML  = testo;
-    else                div.textContent = testo;
+    const riga = document.createElement('div');
 
-    risposta.appendChild(div);
-    risposta.scrollTop = risposta.scrollHeight;
+    if (tipo === 'bot') {
+        riga.className = 'messagerow-ai';
+        riga.innerHTML = `
+            <img src="assets/Kith.png" alt="AI Avatar">
+            <div class="message-ai"></div>
+        `;
+        // innerHTML sicuro solo per il testo bot (HTML controllato da noi)
+        riga.querySelector('.message-ai').innerHTML = testo;
+
+    } else {
+        riga.className = 'messagerow-user';
+        riga.innerHTML = `
+            <div class="message-user"></div>
+            <img src="assets/background.jpg" alt="User Avatar">
+        `;
+        // textContent per l'input utente (evita XSS)
+        riga.querySelector('.message-user').textContent = testo;
+    }
+
+    chatarea.appendChild(riga);
+    chatarea.scrollTop = chatarea.scrollHeight;
 }
 
 // ─────────────────────────────────────────────
 //  mostra_typing() / rimuovi_typing()
-//  Tre puntini animati mentre il bot "scrive"
 // ─────────────────────────────────────────────
 function mostra_typing() {
-    const risposta = document.getElementById('risposta');
-    const div = document.createElement('div');
-    div.className = 'messaggio messaggio-bot messaggio-typing';
-    div.id = 'typing-indicator';
-    div.innerHTML = '<span></span><span></span><span></span>';
-    risposta.appendChild(div);
-    risposta.scrollTop = risposta.scrollHeight;
+    const chatarea = document.querySelector('.chatarea');
+    const riga = document.createElement('div');
+    riga.className = 'messagerow-ai';
+    riga.id = 'typing-indicator';
+    riga.innerHTML = `
+        <img src="assets/Kith.png" alt="AI Avatar">
+        <div class="message-ai messaggio-typing">
+            <span></span><span></span><span></span>
+        </div>
+    `;
+    chatarea.appendChild(riga);
+    chatarea.scrollTop = chatarea.scrollHeight;
 }
 
 function rimuovi_typing() {
@@ -149,14 +161,12 @@ function rimuovi_typing() {
 
 // ─────────────────────────────────────────────
 //  invia(testo)
-//  Mostra il messaggio utente, simula il typing,
-//  poi risponde dopo un ritardo casuale
 // ─────────────────────────────────────────────
 function invia(testo) {
     if (!testo.trim()) return;
 
     aggiungi_messaggio(testo, 'user');
-    document.getElementById('user-text').value = '';
+    document.querySelector('.inputarea input').value = '';
 
     mostra_typing();
     setTimeout(() => {
@@ -169,16 +179,22 @@ function invia(testo) {
 //  AVVIO
 // ─────────────────────────────────────────────
 window.onload = function () {
-    aggiungi_messaggio('Ciao! 👋 Sono il chatbot di <b>Progetto GetUp</b>. Chiedimi degli eventi di maggio a Venezia!', 'bot');
+    // Rimuove i messaggi di test hard-coded nell'HTML
+    document.querySelector('.chatarea').innerHTML = '';
 
-    document.getElementById('user-text').addEventListener('keydown', function (e) {
+    aggiungi_messaggio('Ciao! 👋 Sono <b>Kith</b>, il tuo assistente di VenEventi. Chiedimi degli eventi di maggio a Venezia!', 'bot');
+
+    const input = document.querySelector('.inputarea input');
+    const btnInvia = document.querySelector('.inputarea .btn-primary');
+
+    input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
             e.preventDefault();
             invia(this.value);
         }
     });
 
-    document.getElementById('invia-btn').addEventListener('click', function () {
-        invia(document.getElementById('user-text').value);
+    btnInvia.addEventListener('click', function () {
+        invia(input.value);
     });
 };
