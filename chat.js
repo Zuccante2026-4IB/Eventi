@@ -1,3 +1,7 @@
+// ─────────────────────────────────────────────
+//  chat.js — adattato a VenEventi / Kith
+// ─────────────────────────────────────────────
+
 const risposte = [
     {
         chiavi: ['concert', 'barocc', 'music', 'san vidal'],
